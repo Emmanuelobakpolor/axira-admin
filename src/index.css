@@ -376,6 +376,47 @@ input { outline: none; font: inherit; }
 .wide-metric-card h3 { font-size: 2rem; font-weight: 700; color: var(--text-1); margin-top: 10px; }
 .wide-metric-card h3 span { font-size: 0.95rem; color: var(--text-3); font-weight: 500; margin-left: 4px; }
 
+/* ── BALANCE CARD ────────────────────────────────────────────── */
+.balance-card {
+  position: relative;
+  background: linear-gradient(160deg, #2196ff 0%, #1460e8 100%);
+  border-radius: 20px;
+  padding: 36px 28px 28px;
+  box-shadow: 0 10px 36px rgba(20, 96, 232, 0.38);
+  overflow: hidden;
+}
+
+.balance-card-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 22px;
+  background: #090d1c;
+  border-radius: 0 0 14px 14px;
+}
+
+.balance-card-label {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+  margin: 0 0 10px;
+}
+
+.balance-card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.balance-card-value span {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
 /* ── COUNT CARDS ─────────────────────────────────────────────── */
 .count-grid {
   display: grid;

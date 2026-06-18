@@ -70,6 +70,8 @@ export function WideMetricCard({ title, value, suffix }) {
   );
 }
 
+
+
 export function CountCard({ title, count, amount }) {
   return (
     <article className="count-card">
