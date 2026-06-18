@@ -70,7 +70,18 @@ export function WideMetricCard({ title, value, suffix }) {
   );
 }
 
-
+export function BalanceCard({ title, value, suffix }) {
+  return (
+    <article className="balance-card">
+      <div className="balance-card-notch" />
+      <p className="balance-card-label">{title}</p>
+      <h3 className="balance-card-value">
+        {value}
+        {suffix && <span>{suffix}</span>}
+      </h3>
+    </article>
+  );
+}
 
 export function CountCard({ title, count, amount }) {
   return (
