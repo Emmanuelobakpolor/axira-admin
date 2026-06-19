@@ -17,7 +17,7 @@ export default function LoginPage({ onLogin, error }) {
     <div className="login-screen">
       <div className="login-panel">
         <div className="login-brand">
-          <img src="/logo.png" alt="Axira Logo" className="login-brand-logo" />
+          <img src="/LOGOADMIN.png" alt="Axira" className="brand-logo-img" />
           <h1>AXIRA</h1>
           <p>TRADE · INVEST · GROW</p>
           <span className="login-tag">Admin Dashboard</span>
