@@ -68,10 +68,10 @@ input { outline: none; font: inherit; }
 }
 
 .brand-logo-img {
-  width: 60px;
-  height: 60px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
-  filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.45));
+  filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.55));
 }
 
 .brand-copy { text-align: center; }
