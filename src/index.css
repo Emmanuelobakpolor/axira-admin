@@ -638,72 +638,115 @@ tbody tr:hover td { background: #fafbfd; }
 }
 .back-button:hover { background: var(--content-bg); color: var(--text-1); }
 
-.detail-hero-card,
-.detail-card,
 .empty-state-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  padding: 32px;
+  text-align: center;
 }
-
-.detail-hero-card {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 24px;
-}
-.detail-hero-card h1 { font-size: 1.65rem; font-weight: 700; color: var(--text-1); }
-.detail-hero-card p { margin-top: 4px; color: var(--text-3); }
-.detail-status-row { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
-.detail-status-row span { color: var(--text-3); font-size: 0.86rem; }
-
-.detail-card { padding: 24px; }
-.detail-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.detail-card-header h2 { font-size: 1rem; font-weight: 700; color: var(--text-1); }
-.detail-card-header span { color: var(--text-3); font-size: 0.84rem; }
-
-.detail-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-.detail-item {
-  min-height: 96px;
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid var(--border-light);
-  background: #fafbfd;
-}
-.detail-label {
-  display: block;
-  color: var(--text-3);
-  font-size: 0.78rem;
-  margin-bottom: 8px;
-}
-.detail-item strong { color: var(--text-1); font-size: 1rem; }
-.detail-avatar {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #dbeafe 0%, #c7d2fe 100%);
-  color: #3730a3;
-  font-weight: 800;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-.detail-avatar.small { width: 52px; height: 52px; font-size: 1rem; }
-.empty-state-card { padding: 32px; text-align: center; }
 .empty-state-card h2 { font-size: 1.15rem; color: var(--text-1); }
 .empty-state-card p { margin-top: 8px; color: var(--text-3); }
+
+/* ── USER DETAIL — redesigned ─────────────────────────────────── */
+.ud-section-label {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  font-weight: 500;
+  padding-left: 2px;
+}
+
+.ud-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px 32px;
+  box-shadow: var(--shadow);
+}
+
+.ud-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 14px;
+}
+
+.ud-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 28px;
+}
+
+.ud-content {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.ud-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ud-info-row {
+  font-size: 0.96rem;
+  color: var(--text-1);
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ud-info-key { color: var(--text-1); }
+.ud-info-val { color: var(--text-2); }
+
+.ud-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  flex-shrink: 0;
+  width: 200px;
+}
+
+.ud-avatar-photo {
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #dbeafe 0%, #c7d2fe 100%);
+  display: grid;
+  place-items: center;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #3730a3;
+  letter-spacing: 2px;
+}
+
+.ud-blacklist-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.5px solid #dc2626;
+  border-radius: 10px;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ud-blacklist-btn:hover { background: #fef2f2; }
+
+@media (max-width: 640px) {
+  .ud-content { flex-direction: column-reverse; gap: 24px; }
+  .ud-photo-col { width: 100%; }
+  .ud-avatar-photo { height: 180px; }
+}
 
 /* ── FEES PAGE ───────────────────────────────────────────────── */
 .fees-grid {
@@ -1222,7 +1265,6 @@ tbody tr:hover td { background: #fafbfd; }
   .count-grid, .user-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fees-grid { grid-template-columns: 1fr; }
   .user-toolbar { flex-direction: column; }
-  .detail-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
