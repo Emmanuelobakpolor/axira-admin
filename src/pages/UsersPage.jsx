@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { UsersTable } from '../components/DataTable';
 import { userStats, users } from '../data/mockData';
 
 export default function UsersPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="page-stack">
       <section className="headline-card">
@@ -32,7 +35,10 @@ export default function UsersPage() {
         </div>
       </section>
 
-      <UsersTable rows={users} />
+      <UsersTable
+        rows={users}
+        onUserSelect={(row) => navigate(`/users/${encodeURIComponent(row.id)}`)}
+      />
     </div>
   );
 }

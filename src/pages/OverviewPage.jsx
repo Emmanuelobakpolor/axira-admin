@@ -11,7 +11,17 @@ export default function OverviewPage() {
         ))}
       </section>
 
-      
+      <section className="wide-metrics-grid">
+        {summaryMetrics.map((card) => (
+          <div key={card.title} className="wide-metric-card">
+            <p>{card.title}</p>
+            <h3>
+              {card.value}
+              <span>{card.suffix}</span>
+            </h3>
+          </div>
+        ))}
+      </section>
 
       <TransactionsTable rows={transactions} />
     </div>

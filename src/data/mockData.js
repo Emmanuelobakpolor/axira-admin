@@ -1,8 +1,8 @@
 export const topMetrics = [
   { title: 'Total Users', value: 'N 5,234', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'users' },
-  { title: 'Total Deposit Today', value: 'N 2,215', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'deposit' },
-  { title: 'NGN Deposit', value: 'N 2,215', trend: '+10.0%', accent: '#3b82f6', link: 'View All', icon: 'ngn' },
-  { title: 'Total Withdrawal', value: 'N 1,789', trend: '+10.0%', accent: '#f59e0b', link: 'View All', icon: 'withdrawal' },
+  { title: 'Total Deposit Today', value: 'N2,215', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'deposit' },
+  { title: 'NGN Deposit', value: 'N2,215', trend: '+10.0%', accent: '#3b82f6', link: 'View All', icon: 'ngn' },
+  { title: 'Total Withdrawal', value: 'N1,789', trend: '+10.0%', accent: '#f59e0b', link: 'View All', icon: 'withdrawal' },
 ];
 
 export const summaryMetrics = [
@@ -36,14 +36,42 @@ export const userStats = [
   { label: 'Blacklisted', value: 0, color: '#dd3d53' },
 ];
 
-export const users = Array.from({ length: 12 }, (_, index) => ({
-  name: 'Jane Jones',
-  email: 'janejones@gmail.com',
-  balance: '$200.00',
-  status: 'Active',
-  lastActive: '2 hours ago',
-  tag: index > 6 ? 'Female' : '',
-}));
+export const users = Array.from({ length: 12 }, (_, index) => {
+  const names = [
+    'Jane Jones',
+    'John Smith',
+    'Amina Bello',
+    'David Okon',
+    'Sarah Ahmed',
+    'Michael Eze',
+    'Grace Musa',
+    'Peter Okafor',
+    'Fatima Yusuf',
+    'Daniel Nwosu',
+    'Rita Ade',
+    'Emmanuel Cole',
+  ];
+  const statuses = ['Active', 'Active', 'Pending', 'Active', 'Blacklisted', 'Active', 'Pending', 'Active', 'Active', 'Blacklisted', 'Active', 'Pending'];
+  const name = names[index % names.length];
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+  return {
+    id: `user-${index + 1}`,
+    name,
+    email: `${name.toLowerCase().replace(/\s+/g, '.')}@gmail.com`,
+    phone: `+234 8${index + 1}${String(1234567 + index).padStart(7, '0')}`,
+    profilePic: initials,
+    balance: `$${(200 + index * 35).toFixed(2)}`,
+    status: statuses[index % statuses.length],
+    lastActive: `${index + 1} hours ago`,
+    tag: index > 6 ? 'Female' : '',
+  };
+});
 
 export const feeCards = [
   {

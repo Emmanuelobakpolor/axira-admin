@@ -5,7 +5,9 @@ import LoginPage from './pages/LoginPage';
 import OverviewPage from './pages/OverviewPage';
 import TransactionsPage from './pages/TransactionsPage';
 import UsersPage from './pages/UsersPage';
+import UserDetailPage from './pages/UserDetailPage';
 import FeesPage from './pages/FeesPage';
+import AccountPage from './pages/AccountPage';
 
 const AUTH_KEY = 'axira-admin-auth';
 const DEMO_CREDENTIALS = {
@@ -19,8 +21,10 @@ function ProtectedRoutes({ onLogout }) {
       <Routes>
         <Route path="/overview" element={<OverviewPage />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserDetailPage />} />
         <Route path="/transactions" element={<TransactionsPage />} />
         <Route path="/fees" element={<FeesPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="*" element={<Navigate to="/overview" replace />} />
       </Routes>
     </AdminLayout>

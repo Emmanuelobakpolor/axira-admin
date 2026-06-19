@@ -39,7 +39,7 @@ export function TransactionsTable({ title = 'Recent Transactions', rows, cta = '
   );
 }
 
-export function UsersTable({ rows }) {
+export function UsersTable({ rows, onUserSelect }) {
   return (
     <section className="table-card">
       <div className="table-wrap">
@@ -54,7 +54,19 @@ export function UsersTable({ rows }) {
           </thead>
           <tbody>
             {rows.map((row, index) => (
-              <tr key={`${row.email}-${index}`}>
+              <tr
+                key={`${row.id ?? row.email}-${index}`}
+                className={onUserSelect ? 'clickable-row' : ''}
+                onClick={() => onUserSelect?.(row)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onUserSelect?.(row);
+                  }
+                }}
+                tabIndex={onUserSelect ? 0 : undefined}
+                role={onUserSelect ? 'button' : undefined}
+              >
                 <td>
                   <div className="user-cell">
                     <strong>{row.name}</strong>
