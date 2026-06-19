@@ -1,5 +1,5 @@
 export const topMetrics = [
-  { title: 'Total Users', value: 'N 5,234', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'users' },
+  { title: 'Total Users', value: 'N5,234', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'users' },
   { title: 'Total Deposit Today', value: 'N2,215', trend: '+10.0%', accent: '#10b981', link: 'View All', icon: 'deposit' },
   { title: 'NGN Deposit', value: 'N2,215', trend: '+10.0%', accent: '#3b82f6', link: 'View All', icon: 'ngn' },
   { title: 'Total Withdrawal', value: 'N1,789', trend: '+10.0%', accent: '#f59e0b', link: 'View All', icon: 'withdrawal' },
