@@ -8,8 +8,7 @@ export default function LoginPage({ onLogin, error }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 400));
-    onLogin(email.trim(), password);
+    await onLogin(email.trim(), password);
     setLoading(false);
   };
 
@@ -60,8 +59,7 @@ export default function LoginPage({ onLogin, error }) {
           </form>
 
           <div className="login-hint">
-            <span>Demo credentials</span>
-            <strong>admin@axira.com · axira123</strong>
+            <span>Staff accounts only. Contact the platform owner for access.</span>
           </div>
         </div>
       </div>
