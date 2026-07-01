@@ -79,6 +79,9 @@ export const api = {
   updateEmail: (newEmail, password) =>
     request('POST', '/auth/update-email/', { new_email: newEmail, password }),
 
+  // ── Overview ─────────────────────────────────────────────────────────────
+  overview: () => request('GET', '/admin/overview/'),
+
   // ── Users ─────────────────────────────────────────────────────────────────
   users: () => request('GET', '/admin/users/'),
   userDetail: (id) => request('GET', `/admin/users/${id}/`),
