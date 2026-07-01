@@ -955,7 +955,8 @@ tbody tr:hover td { background: #fafbfd; }
 .primary-button:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(29, 78, 216, 0.38); }
 .primary-button:active { transform: translateY(0); }
 
-.form-error { color: #dc2626; font-size: 0.83rem; }
+.form-error   { color: #dc2626; font-size: 0.83rem; }
+.form-success { color: #16a34a; font-size: 0.83rem; }
 
 .login-hint {
   display: flex;
@@ -1180,6 +1181,7 @@ tbody tr:hover td { background: #fafbfd; }
   flex-wrap: wrap;
 }
 .account-avatar-circle {
+  position: relative;
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -1190,6 +1192,7 @@ tbody tr:hover td { background: #fafbfd; }
   display: grid;
   place-items: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 .account-avatar-info { flex: 1; min-width: 0; }
 .account-avatar-info strong { display: block; font-size: 0.9rem; color: var(--text-1); }
