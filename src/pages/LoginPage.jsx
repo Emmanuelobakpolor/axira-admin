@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PasswordInput from '../components/PasswordInput';
 
 export default function LoginPage({ onLogin, error }) {
   const [email, setEmail] = useState('admin@axira.com');
@@ -42,8 +43,7 @@ export default function LoginPage({ onLogin, error }) {
 
             <label>
               <span>Password</span>
-              <input
-                type="password"
+              <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"

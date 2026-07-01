@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { api } from '../api';
+import PasswordInput from '../components/PasswordInput';
 
 const sections = ['Profile', 'Change Password', 'Update Email'];
 
@@ -251,8 +252,7 @@ function ChangePasswordSection() {
 
       <div className="account-field">
         <label>Current Password</label>
-        <input
-          type="password"
+        <PasswordInput
           placeholder="••••••••"
           value={current}
           onChange={(e) => setCurrent(e.target.value)}
@@ -261,8 +261,7 @@ function ChangePasswordSection() {
       </div>
       <div className="account-field">
         <label>New Password</label>
-        <input
-          type="password"
+        <PasswordInput
           placeholder="••••••••"
           value={newPw}
           onChange={(e) => setNewPw(e.target.value)}
@@ -271,8 +270,7 @@ function ChangePasswordSection() {
       </div>
       <div className="account-field">
         <label>Confirm New Password</label>
-        <input
-          type="password"
+        <PasswordInput
           placeholder="••••••••"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
@@ -331,8 +329,7 @@ function UpdateEmailSection({ currentEmail, onUpdated }) {
       </div>
       <div className="account-field">
         <label>Confirm with Password</label>
-        <input
-          type="password"
+        <PasswordInput
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
