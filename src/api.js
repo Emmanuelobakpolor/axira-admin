@@ -86,6 +86,7 @@ export const api = {
   users: () => request('GET', '/admin/users/'),
   userDetail: (id) => request('GET', `/admin/users/${id}/`),
   toggleBlacklist: (id) => request('POST', `/admin/users/${id}/`),
+  deleteUser: (id) => request('DELETE', `/admin/users/${id}/`),
 
   // ── Transactions ──────────────────────────────────────────────────────────
   transactions: (type) =>

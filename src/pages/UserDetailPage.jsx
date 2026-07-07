@@ -40,6 +40,7 @@ export default function UserDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [blacklisting, setBlacklisting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     api.userDetail(decodeURIComponent(id))
@@ -58,6 +59,20 @@ export default function UserDetailPage() {
       alert(e.message);
     } finally {
       setBlacklisting(false);
+    }
+  }
+
+  async function handleDeleteUser() {
+    if (!window.confirm(
+      `Permanently delete ${user.full_name}'s account? This cannot be undone.`
+    )) return;
+    setDeleting(true);
+    try {
+      await api.deleteUser(user.id);
+      navigate('/users');
+    } catch (e) {
+      alert(e.message);
+      setDeleting(false);
     }
   }
 
@@ -141,6 +156,15 @@ export default function UserDetailPage() {
                   {blacklisting ? 'Working…' : 'Blacklist user'}
                 </>
               ) : blacklisting ? 'Working…' : 'Restore user'}
+            </button>
+            <button
+              type="button"
+              className="ud-blacklist-btn"
+              onClick={handleDeleteUser}
+              disabled={deleting}
+              style={{ background: '#fee2e2', color: '#991b1b', borderColor: '#fca5a5', marginTop: 8 }}
+            >
+              {deleting ? 'Deleting…' : 'Delete account'}
             </button>
           </div>
         </div>
