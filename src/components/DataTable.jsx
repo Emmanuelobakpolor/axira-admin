@@ -75,7 +75,7 @@ export function UsersTable({ rows, onUserSelect }) {
                   </div>
                 </td>
                 <td>{row.balance}</td>
-                <td><StatusPill>{row.status}</StatusPill></td>
+                <td><StatusPill tone={row.status === 'Blacklisted' ? 'warning' : 'success'}>{row.status}</StatusPill></td>
                 <td>{row.lastActive}</td>
               </tr>
             ))}
