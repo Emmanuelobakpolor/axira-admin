@@ -235,7 +235,6 @@ export default function AdminLayout({ children, onLogout }) {
                     <div className="avatar">A</div>
                     <div>
                       <strong style={{ display: 'block', fontSize: '0.84rem', color: '#111827' }}>ADMIN</strong>
-                      <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>letszz@gmail.com</span>
                     </div>
                   </div>
 
