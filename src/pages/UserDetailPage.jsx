@@ -40,7 +40,7 @@ function fmtCoin(value) {
   return n.toLocaleString('en-US', { maximumFractionDigits: 8 });
 }
 
-function CryptoWalletRow({ w }) {
+function CryptoWalletRow({ w, onSettleSend, busyRef }) {
   const unexplained = parseFloat(w.unexplained) || 0;
   const hasDetail = w.holds.length > 0 || unexplained !== 0;
   const cell = { padding: '8px 12px' };
@@ -66,6 +66,26 @@ function CryptoWalletRow({ w }) {
                 {' · '}{h.status.replace('_', ' ')}
                 {' · '}{h.quidax_id ? `Quidax #${h.quidax_id}` : 'never sent to Quidax'}
                 {' · '}since {new Date(h.created_at).toLocaleString('en-NG')}
+                {h.kind === 'withdrawal' && (
+                  <span className="crypto-actions" style={{ display: 'inline-flex', marginLeft: 10 }}>
+                    <button
+                      type="button"
+                      className="crypto-btn approve"
+                      disabled={busyRef === h.reference}
+                      onClick={() => onSettleSend(w.coin, h, 'complete')}
+                    >
+                      Mark sent
+                    </button>
+                    <button
+                      type="button"
+                      className="crypto-btn reject"
+                      disabled={busyRef === h.reference}
+                      onClick={() => onSettleSend(w.coin, h, 'refund')}
+                    >
+                      Refund
+                    </button>
+                  </span>
+                )}
               </div>
             ))}
             {unexplained !== 0 && (
@@ -89,12 +109,32 @@ export default function UserDetailPage() {
   const [blacklisting, setBlacklisting] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
+  const [settlingRef, setSettlingRef] = useState('');
+
   useEffect(() => {
     api.userDetail(decodeURIComponent(id))
       .then(setUser)
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
   }, [id]);
+
+  async function handleSettleSend(coin, hold, action) {
+    const label = `${fmtCoin(hold.amount)} ${coin} (${hold.reference})`;
+    const prompt = action === 'complete'
+      ? `Mark this send as SENT?\n\n${label}\n\nOnly do this if Quidax shows the coin actually left. The user's balance will not be returned.`
+      : `REFUND this send?\n\n${label}\n\nOnly do this if Quidax shows the coin never left. The amount goes back to the user's available balance.`;
+    if (!window.confirm(prompt)) return;
+
+    setSettlingRef(hold.reference);
+    try {
+      await api.cryptoWithdrawalAction(hold.reference, action);
+      setUser(await api.userDetail(decodeURIComponent(id)));
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setSettlingRef('');
+    }
+  }
 
   async function handleToggleBlacklist() {
     if (!window.confirm(user.is_active ? 'Blacklist this user?' : 'Restore this user?')) return;
@@ -232,7 +272,9 @@ export default function UserDetailPage() {
                 </tr>
               </thead>
               <tbody>
-                {user.crypto_wallets.map((w) => <CryptoWalletRow key={w.coin} w={w} />)}
+                {user.crypto_wallets.map((w) => (
+                  <CryptoWalletRow key={w.coin} w={w} onSettleSend={handleSettleSend} busyRef={settlingRef} />
+                ))}
               </tbody>
             </table>
           </div>
