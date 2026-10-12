@@ -105,6 +105,8 @@ export const api = {
     const qs = new URLSearchParams(params).toString();
     return request('GET', `/admin/crypto/withdrawals/${qs ? `?${qs}` : ''}`);
   },
+  cryptoWithdrawalAction: (reference, action) =>
+    request('POST', `/admin/crypto/withdrawals/${reference}/`, { action }),
   cryptoOrderAction: (reference, action, note = '') =>
     request('POST', `/admin/crypto/orders/${reference}/`, { action, note }),
 };

@@ -133,7 +133,7 @@ function OrdersTable({ orders, busyRef, onAction, onOpenUser }) {
   );
 }
 
-function WithdrawalsTable({ withdrawals, onOpenUser }) {
+function WithdrawalsTable({ withdrawals, busyRef, onAction, onOpenUser }) {
   return (
     <section className="table-card">
       <div className="table-wrap">
@@ -147,11 +147,12 @@ function WithdrawalsTable({ withdrawals, onOpenUser }) {
               <th>To address</th>
               <th>Status</th>
               <th>Quidax / Tx</th>
+              <th />
             </tr>
           </thead>
           <tbody>
             {withdrawals.length === 0 && (
-              <tr><td colSpan={7} className="muted-text">No crypto sends.</td></tr>
+              <tr><td colSpan={8} className="muted-text">No crypto sends.</td></tr>
             )}
             {withdrawals.map((w) => (
               <tr key={w.reference}>
@@ -173,6 +174,28 @@ function WithdrawalsTable({ withdrawals, onOpenUser }) {
                 <td className="crypto-mono">
                   {w.quidax_withdrawal_id || '—'}
                   {w.tx_id && <div className="crypto-sub crypto-address">{w.tx_id}</div>}
+                </td>
+                <td>
+                  {w.status === 'processing' && (
+                    <div className="crypto-actions">
+                      <button
+                        type="button"
+                        className="crypto-btn approve"
+                        disabled={busyRef === w.reference}
+                        onClick={() => onAction(w, 'complete')}
+                      >
+                        Mark sent
+                      </button>
+                      <button
+                        type="button"
+                        className="crypto-btn reject"
+                        disabled={busyRef === w.reference}
+                        onClick={() => onAction(w, 'refund')}
+                      >
+                        Refund
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -221,6 +244,24 @@ export default function CryptoPage() {
     setBusyRef(order.reference);
     try {
       await api.cryptoOrderAction(order.reference, action, note);
+      load();
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setBusyRef('');
+    }
+  }
+
+  async function handleWithdrawalAction(w, action) {
+    const label = `${fmtCoin(w.amount)} ${w.coin} to ${w.address} (${w.reference})`;
+    const prompt = action === 'complete'
+      ? `Mark this send as SENT?\n\n${label}\n\nOnly do this if Quidax shows the coin actually left. The user's balance will not be returned.`
+      : `REFUND this send?\n\n${label}\n\nOnly do this if Quidax shows the coin never left. The amount goes back to the user's available balance.`;
+    if (!window.confirm(prompt)) return;
+
+    setBusyRef(w.reference);
+    try {
+      await api.cryptoWithdrawalAction(w.reference, action);
       load();
     } catch (e) {
       alert(e.message);
@@ -296,7 +337,12 @@ export default function CryptoPage() {
       ) : tab === 'orders' ? (
         <OrdersTable orders={data.orders} busyRef={busyRef} onAction={handleAction} onOpenUser={openUser} />
       ) : (
-        <WithdrawalsTable withdrawals={data.withdrawals} onOpenUser={openUser} />
+        <WithdrawalsTable
+          withdrawals={data.withdrawals}
+          busyRef={busyRef}
+          onAction={handleWithdrawalAction}
+          onOpenUser={openUser}
+        />
       )}
     </div>
   );
