@@ -1336,3 +1336,16 @@ tbody tr:hover td { background: #fafbfd; }
   .profile-copy { display: none; }
   .toolbar-actions { flex-wrap: wrap; }
 }
+
+/* ── CRYPTO PAGE ─────────────────────────────────────────────── */
+.crypto-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 2px; }
+.crypto-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.78rem; }
+.crypto-address { max-width: 220px; overflow-wrap: anywhere; }
+.crypto-link { background: none; border: none; padding: 0; color: #2563eb; font-weight: 600; cursor: pointer; text-decoration: none; }
+.crypto-link:hover { text-decoration: underline; }
+.crypto-actions { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.crypto-btn { padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; border: 1.5px solid; cursor: pointer; }
+.crypto-btn:disabled { opacity: 0.5; cursor: default; }
+.crypto-btn.approve { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+.crypto-btn.reject { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+.crypto-select { padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card-bg); color: var(--text-2); font-size: 0.84rem; }

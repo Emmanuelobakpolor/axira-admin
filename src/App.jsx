@@ -6,6 +6,7 @@ import OverviewPage from './pages/OverviewPage';
 import TransactionsPage from './pages/TransactionsPage';
 import UsersPage from './pages/UsersPage';
 import UserDetailPage from './pages/UserDetailPage';
+import CryptoPage from './pages/CryptoPage';
 import FeesPage from './pages/FeesPage';
 import AccountPage from './pages/AccountPage';
 import { api, getToken, setToken } from './api';
@@ -20,6 +21,7 @@ function ProtectedRoutes({ onLogout }) {
         <Route path="/users" element={<UsersPage />} />
         <Route path="/users/:id" element={<UserDetailPage />} />
         <Route path="/transactions" element={<TransactionsPage />} />
+        <Route path="/crypto" element={<CryptoPage />} />
         <Route path="/fees" element={<FeesPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="*" element={<Navigate to="/overview" replace />} />

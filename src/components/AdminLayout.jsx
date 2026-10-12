@@ -39,6 +39,16 @@ const navItems = [
     ),
   },
   {
+    label: 'Crypto',
+    path: '/crypto',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="9" r="7" />
+        <path d="M7 5.5h3a1.75 1.75 0 010 3.5H7m0 0h3.5a1.75 1.75 0 010 3.5H7V5.5M8 4v1.5M8 12.5V14" />
+      </svg>
+    ),
+  },
+  {
     label: 'Fees',
     path: '/fees',
     icon: (
@@ -55,6 +65,7 @@ const pageMeta = {
   '/users': { title: 'Users', subtitle: 'Monitor users, balances and account status' },
   '/user-details': { title: 'User Details', subtitle: 'View selected user profile information' },
   '/transactions': { title: 'Transactions', subtitle: 'All swaps, deposits and withdrawals across the platform' },
+  '/crypto': { title: 'Crypto', subtitle: 'Buy, sell and swap orders, and crypto sends to external wallets' },
   '/fees': { title: 'App fees', subtitle: 'Configure platform fees for swaps, deposits and withdrawals.' },
   '/account': { title: 'Account Settings', subtitle: 'Manage your profile, password and email address.' },
 };
