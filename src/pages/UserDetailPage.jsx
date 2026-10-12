@@ -33,6 +33,53 @@ function TxRow({ tx }) {
   );
 }
 
+const holdKindLabel = { sell: 'Sell', swap: 'Swap', withdrawal: 'Send' };
+
+function fmtCoin(value) {
+  const n = parseFloat(value) || 0;
+  return n.toLocaleString('en-US', { maximumFractionDigits: 8 });
+}
+
+function CryptoWalletRow({ w }) {
+  const unexplained = parseFloat(w.unexplained) || 0;
+  const hasDetail = w.holds.length > 0 || unexplained !== 0;
+  const cell = { padding: '8px 12px' };
+
+  return (
+    <>
+      <tr style={{ borderTop: '1px solid #f3f4f6' }}>
+        <td style={{ ...cell, fontWeight: 600 }}>{w.coin}</td>
+        <td style={cell}>{fmtCoin(w.available)}</td>
+        <td style={{ ...cell, color: parseFloat(w.reserved) > 0 ? '#f59e0b' : undefined }}>
+          {fmtCoin(w.reserved)}
+        </td>
+        <td style={{ ...cell, fontWeight: 700 }}>{fmtCoin(w.total)}</td>
+      </tr>
+      {hasDetail && (
+        <tr>
+          <td />
+          <td colSpan={3} style={{ padding: '0 12px 10px', fontSize: 12, color: '#6b7280' }}>
+            {w.holds.map((h) => (
+              <div key={h.reference} style={{ marginBottom: 4 }}>
+                <strong>{fmtCoin(h.amount)} {w.coin}</strong> held by {holdKindLabel[h.kind] || h.kind}{' '}
+                <span style={{ fontFamily: 'monospace' }}>{h.reference}</span>
+                {' · '}{h.status.replace('_', ' ')}
+                {' · '}{h.quidax_id ? `Quidax #${h.quidax_id}` : 'never sent to Quidax'}
+                {' · '}since {new Date(h.created_at).toLocaleString('en-NG')}
+              </div>
+            ))}
+            {unexplained !== 0 && (
+              <div style={{ color: '#ef4444', fontWeight: 600 }}>
+                {fmtCoin(w.unexplained)} {w.coin} reserved with no open order behind it — needs a manual fix
+              </div>
+            )}
+          </td>
+        </tr>
+      )}
+    </>
+  );
+}
+
 export default function UserDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -169,6 +216,28 @@ export default function UserDetailPage() {
           </div>
         </div>
       </div>
+
+      {user.crypto_wallets?.length > 0 && (
+        <div className="ud-card">
+          <h3 className="ud-card-title">Crypto Wallets</h3>
+          <div className="ud-divider" />
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ color: '#9ca3af', textAlign: 'left' }}>
+                  <th style={{ padding: '8px 12px' }}>Coin</th>
+                  <th style={{ padding: '8px 12px' }}>Available</th>
+                  <th style={{ padding: '8px 12px' }}>Reserved</th>
+                  <th style={{ padding: '8px 12px' }}>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {user.crypto_wallets.map((w) => <CryptoWalletRow key={w.coin} w={w} />)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {user.transactions.length > 0 && (
         <div className="ud-card">
