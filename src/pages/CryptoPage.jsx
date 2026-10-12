@@ -43,6 +43,16 @@ function fmtDate(iso) {
   return new Date(iso).toLocaleString('en-NG', { dateStyle: 'medium', timeStyle: 'short' });
 }
 
+export function settlePrompt(action, label) {
+  if (action === 'complete') {
+    return `Mark this send as SENT?\n\n${label}\n\nOnly do this if Quidax shows the coin actually left. The user's balance will not be returned.`;
+  }
+  if (action === 'refund') {
+    return `REFUND this send?\n\n${label}\n\nOnly do this if Quidax shows the coin never left. The amount goes back to the user's available balance.`;
+  }
+  return `UNDO your last action on this send?\n\n${label}\n\nThe send goes back to how it was before, including the user's balance. You can then choose Mark sent or Refund again.`;
+}
+
 function UserCell({ row, onOpen }) {
   return (
     <td>
@@ -196,6 +206,16 @@ function WithdrawalsTable({ withdrawals, busyRef, onAction, onOpenUser }) {
                       </button>
                     </div>
                   )}
+                  {w.undoable && (
+                    <button
+                      type="button"
+                      className="crypto-btn undo"
+                      disabled={busyRef === w.reference}
+                      onClick={() => onAction(w, 'undo')}
+                    >
+                      Undo
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -254,10 +274,7 @@ export default function CryptoPage() {
 
   async function handleWithdrawalAction(w, action) {
     const label = `${fmtCoin(w.amount)} ${w.coin} to ${w.address} (${w.reference})`;
-    const prompt = action === 'complete'
-      ? `Mark this send as SENT?\n\n${label}\n\nOnly do this if Quidax shows the coin actually left. The user's balance will not be returned.`
-      : `REFUND this send?\n\n${label}\n\nOnly do this if Quidax shows the coin never left. The amount goes back to the user's available balance.`;
-    if (!window.confirm(prompt)) return;
+    if (!window.confirm(settlePrompt(action, label))) return;
 
     setBusyRef(w.reference);
     try {

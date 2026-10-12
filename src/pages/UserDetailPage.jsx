@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../api';
+import { settlePrompt } from './CryptoPage';
 
 function TxRow({ tx }) {
   const typeLabel = {
@@ -42,7 +43,8 @@ function fmtCoin(value) {
 
 function CryptoWalletRow({ w, onSettleSend, busyRef }) {
   const unexplained = parseFloat(w.unexplained) || 0;
-  const hasDetail = w.holds.length > 0 || unexplained !== 0;
+  const undoable = w.undoable_sends ?? [];
+  const hasDetail = w.holds.length > 0 || unexplained !== 0 || undoable.length > 0;
   const cell = { padding: '8px 12px' };
 
   return (
@@ -88,6 +90,23 @@ function CryptoWalletRow({ w, onSettleSend, busyRef }) {
                 )}
               </div>
             ))}
+            {undoable.map((s) => (
+              <div key={s.reference} style={{ marginBottom: 4 }}>
+                <strong>{fmtCoin(s.amount)} {w.coin}</strong> Send{' '}
+                <span style={{ fontFamily: 'monospace' }}>{s.reference}</span>
+                {' · '}{s.status === 'completed' ? 'marked sent' : 'refunded'} by admin
+                {' · '}{new Date(s.updated_at).toLocaleString('en-NG')}
+                <button
+                  type="button"
+                  className="crypto-btn undo"
+                  style={{ marginLeft: 10 }}
+                  disabled={busyRef === s.reference}
+                  onClick={() => onSettleSend(w.coin, s, 'undo')}
+                >
+                  Undo
+                </button>
+              </div>
+            ))}
             {unexplained !== 0 && (
               <div style={{ color: '#ef4444', fontWeight: 600 }}>
                 {fmtCoin(w.unexplained)} {w.coin} reserved with no open order behind it — needs a manual fix
@@ -120,10 +139,7 @@ export default function UserDetailPage() {
 
   async function handleSettleSend(coin, hold, action) {
     const label = `${fmtCoin(hold.amount)} ${coin} (${hold.reference})`;
-    const prompt = action === 'complete'
-      ? `Mark this send as SENT?\n\n${label}\n\nOnly do this if Quidax shows the coin actually left. The user's balance will not be returned.`
-      : `REFUND this send?\n\n${label}\n\nOnly do this if Quidax shows the coin never left. The amount goes back to the user's available balance.`;
-    if (!window.confirm(prompt)) return;
+    if (!window.confirm(settlePrompt(action, label))) return;
 
     setSettlingRef(hold.reference);
     try {

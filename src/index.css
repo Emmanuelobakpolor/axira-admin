@@ -1348,4 +1348,5 @@ tbody tr:hover td { background: #fafbfd; }
 .crypto-btn:disabled { opacity: 0.5; cursor: default; }
 .crypto-btn.approve { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
 .crypto-btn.reject { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+.crypto-btn.undo { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
 .crypto-select { padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card-bg); color: var(--text-2); font-size: 0.84rem; }
