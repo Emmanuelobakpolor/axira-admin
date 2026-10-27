@@ -107,6 +107,8 @@ export const api = {
   },
   cryptoWithdrawalAction: (reference, action) =>
     request('POST', `/admin/crypto/withdrawals/${reference}/`, { action }),
+  cryptoSweep: ({ dryRun = true, email = '', coin = '' } = {}) =>
+    request('POST', '/admin/crypto/sweep/', { dry_run: dryRun, email, coin }),
   cryptoOrderAction: (reference, action, note = '') =>
     request('POST', `/admin/crypto/orders/${reference}/`, { action, note }),
 };

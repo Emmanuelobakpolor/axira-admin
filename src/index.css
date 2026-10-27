@@ -1349,4 +1349,8 @@ tbody tr:hover td { background: #fafbfd; }
 .crypto-btn.approve { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
 .crypto-btn.reject { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
 .crypto-btn.undo { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+.sweep-panel { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.sweep-panel h3 { margin: 0; }
+.sweep-panel input.crypto-select { min-width: 240px; border-radius: 10px; }
+.sweep-output { margin: 0; padding: 14px; border-radius: 10px; background: #0f172a; color: #e2e8f0; font-size: 0.8rem; white-space: pre-wrap; max-height: 420px; overflow: auto; }
 .crypto-select { padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card-bg); color: var(--text-2); font-size: 0.84rem; }

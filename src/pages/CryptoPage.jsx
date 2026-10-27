@@ -226,6 +226,67 @@ function WithdrawalsTable({ withdrawals, busyRef, onAction, onOpenUser }) {
   );
 }
 
+function SweepPanel() {
+  const [email, setEmail] = useState('');
+  const [coin, setCoin] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState('');
+
+  async function run(dryRun) {
+    if (!dryRun) {
+      const scope = `${email.trim() || 'ALL users'} · ${coin.trim().toUpperCase() || 'all coins'}`;
+      if (!window.confirm(`Move coins from customer sub-accounts into the main Quidax account?\n\nScope: ${scope}`)) return;
+    }
+    setBusy(true);
+    setError('');
+    try {
+      setResult(await api.cryptoSweep({ dryRun, email: email.trim(), coin: coin.trim() }));
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="table-card sweep-panel">
+      <h3>Sweep to main account</h3>
+      <p className="muted-text">
+        Moves crypto sitting in customers&apos; Quidax sub-accounts into the main account, where
+        sells and sends are paid from. Customer balances in Axira don&apos;t change. Always preview first.
+      </p>
+      <div className="filter-row">
+        <input
+          className="crypto-select"
+          placeholder="Customer email (blank = everyone)"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="crypto-select"
+          placeholder="Coin, e.g. BTC (blank = all)"
+          value={coin}
+          onChange={(e) => setCoin(e.target.value)}
+        />
+        <button type="button" className="crypto-btn undo" disabled={busy} onClick={() => run(true)}>
+          {busy ? 'Working…' : 'Preview (moves nothing)'}
+        </button>
+        <button type="button" className="crypto-btn approve" disabled={busy} onClick={() => run(false)}>
+          Sweep now
+        </button>
+      </div>
+      {error && <p className="form-error">{error}</p>}
+      {result && (
+        <>
+          <p className="muted-text">{result.dry_run ? 'Preview — nothing was moved:' : 'Sweep finished:'}</p>
+          <pre className="sweep-output">{result.output || '(no output)'}</pre>
+        </>
+      )}
+    </section>
+  );
+}
+
 export default function CryptoPage() {
   const navigate = useNavigate();
   const [tab, setTab] = useState('orders');
@@ -237,6 +298,7 @@ export default function CryptoPage() {
   const [busyRef, setBusyRef] = useState('');
 
   const load = useCallback(() => {
+    if (tab === 'sweep') return;
     setLoading(true);
     setError('');
     const req = tab === 'orders'
@@ -308,7 +370,7 @@ export default function CryptoPage() {
   return (
     <div className="page-stack">
       <div className="filter-row">
-        {[{ label: 'Orders', value: 'orders' }, { label: 'Sends', value: 'withdrawals' }].map((t) => (
+        {[{ label: 'Orders', value: 'orders' }, { label: 'Sends', value: 'withdrawals' }, { label: 'Sweep', value: 'sweep' }].map((t) => (
           <button
             key={t.value}
             type="button"
@@ -320,6 +382,8 @@ export default function CryptoPage() {
         ))}
       </div>
 
+      {tab === 'sweep' ? <SweepPanel /> : (
+      <>
       <section className="count-grid">
         {stats.map((s) => <CountCard key={s.title} {...s} />)}
       </section>
@@ -360,6 +424,8 @@ export default function CryptoPage() {
           onAction={handleWithdrawalAction}
           onOpenUser={openUser}
         />
+      )}
+      </>
       )}
     </div>
   );
