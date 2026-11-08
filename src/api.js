@@ -25,12 +25,21 @@ async function request(method, path, body) {
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw Object.assign(
-      new Error(err.detail || err.error || `Request failed (${res.status})`),
+      new Error(err.detail || err.error || fieldError(err) || `Request failed (${res.status})`),
       { status: res.status },
     );
   }
 
+  if (res.status === 204) return null;
   return res.json();
+}
+
+// DRF validation errors come back as { field: ["message"] }.
+function fieldError(err) {
+  const entry = Object.entries(err).find(([, v]) => Array.isArray(v) && v.length);
+  if (!entry) return '';
+  const [field, [message]] = entry;
+  return field === 'non_field_errors' ? message : `${field.replace(/_/g, ' ')}: ${message}`;
 }
 
 async function uploadFile(path, fieldName, file) {
@@ -111,4 +120,11 @@ export const api = {
     request('POST', '/admin/crypto/sweep/', { dry_run: dryRun, email, coin }),
   cryptoOrderAction: (reference, action, note = '') =>
     request('POST', `/admin/crypto/orders/${reference}/`, { action, note }),
+
+  // ── Gift card sell rates ──────────────────────────────────────────────────
+  giftcardRates: () => request('GET', '/admin/giftcards/sell-rates/'),
+  createGiftcardRate: (data) => request('POST', '/admin/giftcards/sell-rates/', data),
+  updateGiftcardRate: (id, data) =>
+    request('PATCH', `/admin/giftcards/sell-rates/${id}/`, data),
+  deleteGiftcardRate: (id) => request('DELETE', `/admin/giftcards/sell-rates/${id}/`),
 };

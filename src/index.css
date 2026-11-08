@@ -1354,3 +1354,25 @@ tbody tr:hover td { background: #fafbfd; }
 .sweep-panel input.crypto-select { min-width: 240px; border-radius: 10px; }
 .sweep-output { margin: 0; padding: 14px; border-radius: 10px; background: #0f172a; color: #e2e8f0; font-size: 0.8rem; white-space: pre-wrap; max-height: 420px; overflow: auto; }
 .crypto-select { padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card-bg); color: var(--text-2); font-size: 0.84rem; }
+
+/* ── GIFT CARD RATES PAGE ────────────────────────────────────── */
+.rate-form { padding: 20px; }
+.rate-form h3 { margin: 0 0 14px; font-size: 0.95rem; font-weight: 600; color: var(--text-1); }
+.rate-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.rate-fields label { display: flex; flex-direction: column; gap: 6px; }
+.rate-fields span { color: var(--text-2); font-size: 0.8rem; font-weight: 500; }
+.rate-fields input, .rate-fields select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--content-bg);
+  color: var(--text-1);
+  font-size: 0.88rem;
+}
+.rate-fields input:focus, .rate-fields select:focus { border-color: #a5b4fc; background: #fff; }
+.rate-wide { grid-column: 1 / -1; }
+.rate-hint { margin: 12px 0; font-size: 0.82rem; }
+.rate-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.rate-brand img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }
+.rate-inactive td { opacity: 0.55; }

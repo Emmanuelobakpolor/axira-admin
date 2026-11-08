@@ -58,6 +58,17 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    label: 'Gift Card Rates',
+    path: '/giftcard-rates',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="6" width="14" height="10" rx="1.5" />
+        <path d="M2 9.5h14M9 6v10" />
+        <path d="M9 6C7.5 3 4.5 3.5 5.5 5.2 6.2 6 9 6 9 6zM9 6c1.5-3 4.5-2.5 3.5-.8C11.8 6 9 6 9 6z" />
+      </svg>
+    ),
+  },
 ];
 
 const pageMeta = {
@@ -67,6 +78,7 @@ const pageMeta = {
   '/transactions': { title: 'Transactions', subtitle: 'All swaps, deposits and withdrawals across the platform' },
   '/crypto': { title: 'Crypto', subtitle: 'Buy, sell and swap orders, and crypto sends to external wallets' },
   '/fees': { title: 'App fees', subtitle: 'Configure platform fees for swaps, deposits and withdrawals.' },
+  '/giftcard-rates': { title: 'Gift Card Rates', subtitle: 'What you pay customers per $1 when they sell a gift card. Only cards listed here can be sold.' },
   '/account': { title: 'Account Settings', subtitle: 'Manage your profile, password and email address.' },
 };
 
