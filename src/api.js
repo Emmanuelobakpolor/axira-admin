@@ -127,4 +127,5 @@ export const api = {
   updateGiftcardRate: (id, data) =>
     request('PATCH', `/admin/giftcards/sell-rates/${id}/`, data),
   deleteGiftcardRate: (id) => request('DELETE', `/admin/giftcards/sell-rates/${id}/`),
+  uploadGiftcardLogo: (file) => uploadFile('/admin/giftcards/logo/', 'logo', file),
 };

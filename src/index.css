@@ -1372,6 +1372,18 @@ tbody tr:hover td { background: #fafbfd; }
 }
 .rate-fields input:focus, .rate-fields select:focus { border-color: #a5b4fc; background: #fff; }
 .rate-wide { grid-column: 1 / -1; }
+.rate-logo { display: flex; flex-direction: column; gap: 8px; }
+.rate-logo > span { color: var(--text-2); font-size: 0.8rem; font-weight: 500; }
+.rate-logo-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rate-logo-preview {
+  width: 56px; height: 56px; border-radius: 12px;
+  border: 1.5px dashed var(--border); background: var(--content-bg);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.rate-logo-preview img { width: 100%; height: 100%; object-fit: contain; }
+.rate-logo-preview span { font-size: 0.68rem; color: var(--text-3); }
+.rate-upload { position: relative; overflow: hidden; }
+.rate-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .rate-hint { margin: 12px 0; font-size: 0.82rem; }
 .rate-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; }
 .rate-brand img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }

@@ -14,7 +14,9 @@ const EMPTY_FORM = {
 const fmtNgn = (v) => `₦${Number(v).toLocaleString('en-NG', { maximumFractionDigits: 2 })}`;
 const fmtUsd = (v) => `$${Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
 
-function RateForm({ form, setForm, countries, cardTypes, editing, busy, error, onSubmit, onCancel }) {
+function RateForm({
+  form, setForm, countries, cardTypes, editing, busy, uploading, error, onSubmit, onCancel, onUpload,
+}) {
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   const example = Number(form.rate_ngn) > 0 && Number(form.min_usd) > 0
     ? `A ${fmtUsd(form.min_usd)} card pays ${fmtNgn(form.min_usd * form.rate_ngn)}`
@@ -62,15 +64,42 @@ function RateForm({ form, setForm, countries, cardTypes, editing, busy, error, o
             <span>Rate (₦ per $1)</span>
             <input type="number" min="0.01" step="0.01" value={form.rate_ngn} onChange={set('rate_ngn')} required />
           </label>
-          <label className="rate-wide">
-            <span>Logo image URL (optional)</span>
-            <input value={form.logo_url} onChange={set('logo_url')} placeholder="https://…" />
-          </label>
+          <div className="rate-wide rate-logo">
+            <span>Logo (optional)</span>
+            <div className="rate-logo-row">
+              <div className="rate-logo-preview">
+                {form.logo_url ? <img src={form.logo_url} alt="" /> : <span>No logo</span>}
+              </div>
+              <label className="crypto-btn undo rate-upload">
+                {uploading ? 'Uploading…' : form.logo_url ? 'Change logo' : 'Upload logo'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  disabled={uploading || busy}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    e.target.value = '';
+                    if (file) onUpload(file);
+                  }}
+                />
+              </label>
+              {form.logo_url && !uploading && (
+                <button
+                  type="button"
+                  className="crypto-link"
+                  onClick={() => setForm((f) => ({ ...f, logo_url: '' }))}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+            <small className="muted-text">PNG, JPG or WebP, up to 2 MB. A square image looks best.</small>
+          </div>
         </div>
         <p className="muted-text rate-hint">{example}</p>
         {error && <p className="form-error">{error}</p>}
         <div className="crypto-actions">
-          <button type="submit" className="crypto-btn approve" disabled={busy}>
+          <button type="submit" className="crypto-btn approve" disabled={busy || uploading}>
             {busy ? 'Saving…' : editing ? 'Save changes' : 'Add rate'}
           </button>
           {editing && (
@@ -94,6 +123,7 @@ export default function GiftCardRatesPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [editing, setEditing] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [formError, setFormError] = useState('');
   const [rowError, setRowError] = useState('');
   const [query, setQuery] = useState('');
@@ -155,6 +185,19 @@ export default function GiftCardRatesPage() {
     }
   }
 
+  async function uploadLogo(file) {
+    setUploading(true);
+    setFormError('');
+    try {
+      const { url } = await api.uploadGiftcardLogo(file);
+      setForm((f) => ({ ...f, logo_url: url }));
+    } catch (e) {
+      setFormError(e.message || 'Logo upload failed. Try again.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
   async function toggleActive(rate) {
     setRowError('');
     try {
@@ -190,9 +233,11 @@ export default function GiftCardRatesPage() {
         cardTypes={cardTypes}
         editing={editing}
         busy={busy}
+        uploading={uploading}
         error={formError}
         onSubmit={submit}
         onCancel={cancelEdit}
+        onUpload={uploadLogo}
       />
 
       <div className="filter-row">
