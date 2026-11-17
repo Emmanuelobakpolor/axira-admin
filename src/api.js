@@ -128,4 +128,7 @@ export const api = {
     request('PATCH', `/admin/giftcards/sell-rates/${id}/`, data),
   deleteGiftcardRate: (id) => request('DELETE', `/admin/giftcards/sell-rates/${id}/`),
   uploadGiftcardLogo: (file) => uploadFile('/admin/giftcards/logo/', 'logo', file),
+
+  // ── Notifications / broadcasts ───────────────────────────────────────────
+  sendBroadcast: (payload) => request('POST', '/admin/notifications/broadcast/', payload),
 };

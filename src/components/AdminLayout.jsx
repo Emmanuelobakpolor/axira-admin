@@ -59,6 +59,17 @@ const navItems = [
     ),
   },
   {
+    label: 'Broadcast',
+    path: '/notifications',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 8.5V5.8A1.3 1.3 0 013.3 4.5h3.2l4.7-2.7a.8.8 0 011.2.7v12.9a.8.8 0 01-1.2.7L6.5 13.7H3.3A1.3 1.3 0 012 12.4v-2.7" />
+        <path d="M10.5 6.5a2.5 2.5 0 010 5" />
+        <path d="M12 5a4 4 0 010 8" />
+      </svg>
+    ),
+  },
+  {
     label: 'Gift Card Rates',
     path: '/giftcard-rates',
     icon: (
@@ -78,6 +89,7 @@ const pageMeta = {
   '/transactions': { title: 'Transactions', subtitle: 'All swaps, deposits and withdrawals across the platform' },
   '/crypto': { title: 'Crypto', subtitle: 'Buy, sell and swap orders, and crypto sends to external wallets' },
   '/fees': { title: 'App fees', subtitle: 'Configure platform fees for swaps, deposits and withdrawals.' },
+  '/notifications': { title: 'Broadcast Messages', subtitle: 'Send app and push notifications to all users or selected contacts.' },
   '/giftcard-rates': { title: 'Gift Card Rates', subtitle: 'What you pay customers per $1 when they sell a gift card. Only cards listed here can be sold.' },
   '/account': { title: 'Account Settings', subtitle: 'Manage your profile, password and email address.' },
 };

@@ -9,6 +9,7 @@ import UserDetailPage from './pages/UserDetailPage';
 import CryptoPage from './pages/CryptoPage';
 import FeesPage from './pages/FeesPage';
 import GiftCardRatesPage from './pages/GiftCardRatesPage';
+import BroadcastNotificationsPage from './pages/BroadcastNotificationsPage';
 import AccountPage from './pages/AccountPage';
 import { api, getToken, setToken } from './api';
 
@@ -25,6 +26,7 @@ function ProtectedRoutes({ onLogout }) {
         <Route path="/crypto" element={<CryptoPage />} />
         <Route path="/fees" element={<FeesPage />} />
         <Route path="/giftcard-rates" element={<GiftCardRatesPage />} />
+        <Route path="/notifications" element={<BroadcastNotificationsPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="*" element={<Navigate to="/overview" replace />} />
       </Routes>
