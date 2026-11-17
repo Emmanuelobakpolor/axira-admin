@@ -1485,3 +1485,216 @@ tbody tr:hover td { background: #fafbfd; }
     align-items: flex-start;
   }
 }
+
+/* ── GIFT CARD RATE PAGE ──────────────────────────────────────── */
+.rate-form {
+  padding: 20px;
+}
+
+.rate-form h3 {
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: var(--text-1);
+}
+
+.rate-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rate-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 0.9rem;
+}
+
+.rate-fields input,
+.rate-fields select,
+.rate-fields textarea,
+.crypto-select {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+  background: #fff;
+  color: var(--text-1);
+}
+
+.rate-fields input:focus,
+.rate-fields select:focus,
+.rate-fields textarea:focus,
+.crypto-select:focus {
+  outline: none;
+  border-color: #9bb6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.rate-wide {
+  grid-column: 1 / -1;
+}
+
+.rate-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rate-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rate-logo-preview {
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--text-3);
+  font-size: 0.72rem;
+}
+
+.rate-logo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rate-upload {
+  position: relative;
+  overflow: hidden;
+}
+
+.rate-upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.rate-hint {
+  margin-top: 4px;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-row .crypto-select {
+  max-width: 280px;
+}
+
+.table-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-card th,
+.table-card td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.table-card thead th {
+  background: #f8fafc;
+  color: var(--text-2);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.table-card tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.rate-inactive {
+  opacity: 0.7;
+  background: #fafafa;
+}
+
+.rate-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.rate-brand img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f3f4f6;
+}
+
+.crypto-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.crypto-link {
+  color: #2563eb;
+  font-weight: 600;
+  background: transparent;
+}
+
+.crypto-btn {
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: all 0.18s;
+}
+
+.crypto-btn.approve {
+  background: #eafaf3;
+  color: #0f9f6e;
+  border-color: #b9ecd7;
+}
+
+.crypto-btn.undo {
+  background: #f3f6ff;
+  color: #3b5dd8;
+  border-color: #dbe5ff;
+}
+
+.crypto-btn.reject {
+  background: #fff1f2;
+  color: #be123c;
+  border-color: #fecdd3;
+}
+
+.crypto-sub {
+  margin-top: 4px;
+  color: var(--text-3);
+  font-size: 0.76rem;
+}
